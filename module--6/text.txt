@@ -1,0 +1,103 @@
+1. Explain the structure and purpose of forms in Flutter.
+ What is a Form in Flutter?
+A Form in Flutter is used to collect user input.
+For example:
+Login form
+Registration form
+Feedback form
+Contact form
+Form widget
+TextFormField widget
+GlobalKey (to control the form)
+
+Basic Structure Example:
+final _formKey = GlobalKey<FormState>();
+Form(
+  key: _formKey,
+  child: Column(
+    children: [
+      TextFormField(
+        decoration: InputDecoration(labelText: "Email"),
+      ),
+      TextFormField(
+        decoration: InputDecoration(labelText: "Password"),
+      ),
+      ElevatedButton(
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            print("Form is valid");
+          }
+        },
+        child: Text("Submit"),
+      ),
+    ],
+  ),
+);
+Forms are used to:
+Collect user input
+Validate user data
+Submit data to database or server
+Ensure correct and secure input
+Forms help make apps interactive and user-friendly.
+
+2. Describe how controllers and listeners are used to manage form input.
+ What is a Controller?
+A TextEditingController is used to:
+Get text from a text field
+Set text inside a text field
+Clear text
+
+Example:
+TextEditingController emailController = TextEditingController();
+TextField(
+  controller: emailController,
+)
+
+
+
+What is a Listener?
+A listener is used to detect changes in text while the user is typing.
+Example:
+
+emailController.addListener(() {
+  print("Current text: ${emailController.text}");
+});
+
+3. List some common form validation techniques and provide examples.
+Validation means checking if the user entered correct and valid data.
+
+1. Empty Field Validation
+Check if the field is empty.
+validator: (value) {
+  if (value == null || value.isEmpty) {
+    return "Please enter your name";
+  }
+  return null;
+}
+ 2. Email Validation
+Check if email format is correct.
+validator: (value) {
+  if (!value!.contains("@")) {
+    return "Enter a valid email";
+  }
+  return null;
+}
+
+3. Minimum Length Validation (Password)
+validator: (value) {
+  if (value!.length < 6) {
+    return "Password must be at least 6 characters";
+  }
+  return null;
+}
+ 4. Number Only Validation
+TextFormField(
+  keyboardType: TextInputType.number,
+)
+ 5. Confirm Password Validation
+validator: (value) {
+  if (value != passwordController.text) {
+    return "Passwords do not match";
+  }
+  return null;
+}
